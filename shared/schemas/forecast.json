@@ -1,0 +1,26 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Forecast",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["communityId", "generatedAt", "horizonHours", "intervalMinutes", "points"],
+    "properties": {
+      "communityId": { "type": "string" },
+      "generatedAt": { "type": "string", "format": "date-time" },
+      "horizonHours": { "enum": [24, 72] },
+      "intervalMinutes": { "const": 60 },
+      "points": {
+        "type": "array",
+        "items": {
+          "type": "object", "additionalProperties": false,
+          "required": ["timestamp", "solarAvailableKW", "windAvailableKW", "demandKW"],
+          "properties": {
+            "timestamp": { "type": "string", "format": "date-time" },
+            "solarAvailableKW": { "type": "number", "minimum": 0 },
+            "windAvailableKW": { "type": "number", "minimum": 0 },
+            "demandKW": { "type": "number", "minimum": 0 }
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "OptimizationRun",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["runId", "communityId", "createdAt", "plan", "ladder", "runway", "signal"],
+    "properties": {
+      "runId": { "type": "string" },
+      "communityId": { "type": "string" },
+      "createdAt": { "type": "string", "format": "date-time" },
+      "scenarioId": { "type": "string" },
+      "plan": { "$ref": "dispatch-plan.json" },
+      "ladder": { "$ref": "ladder-response.json" },
+      "runway": { "$ref": "runway-response.json" },
+      "signal": { "$ref": "signal-response.json" }
+    }
+  }

@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "RunwayResponse",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["communityId", "generatedAt", "runwayHours", "fuelRemainingLiters", "depletionTimestamp", "points"],
+    "properties": {
+      "communityId": { "type": "string" },
+      "generatedAt": { "type": "string", "format": "date-time" },
+      "runwayHours": { "type": "number", "minimum": 0 },
+      "fuelRemainingLiters": { "type": "number", "minimum": 0 },
+      "depletionTimestamp": { "type": ["string", "null"], "format": "date-time" },
+      "points": {
+        "type": "array",
+        "items": {
+          "type": "object", "additionalProperties": false,
+          "required": ["timestamp", "fuelRemainingLiters"],
+          "properties": {
+            "timestamp": { "type": "string", "format": "date-time" },
+            "fuelRemainingLiters": { "type": "number", "minimum": 0 }
+          }
+        }
+      }
+    }
+  }

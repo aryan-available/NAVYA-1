@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "CommunityState",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["communityId", "timestamp", "demand", "solar", "wind", "battery", "diesel"],
+    "properties": {
+      "communityId": { "type": "string" },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "demand": {
+        "type": "object", "additionalProperties": false, "required": ["totalKW"],
+        "properties": { "totalKW": { "type": "number", "minimum": 0 } }
+      },
+      "solar": {
+        "type": "object", "additionalProperties": false, "required": ["availableKW"],
+        "properties": { "availableKW": { "type": "number", "minimum": 0 } }
+      },
+      "wind": {
+        "type": "object", "additionalProperties": false, "required": ["availableKW"],
+        "properties": { "availableKW": { "type": "number", "minimum": 0 } }
+      },
+      "battery": {
+        "type": "object", "additionalProperties": false,
+        "required": ["socPercent", "capacityKWh", "maxChargeKW", "maxDischargeKW", "minSocPercent"],
+        "properties": {
+          "socPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+          "capacityKWh": { "type": "number", "minimum": 0 },
+          "maxChargeKW": { "type": "number", "minimum": 0 },
+          "maxDischargeKW": { "type": "number", "minimum": 0 },
+          "minSocPercent": { "type": "number", "minimum": 0, "maximum": 100 }
+        }
+      },
+      "diesel": {
+        "type": "object", "additionalProperties": false,
+        "required": ["available", "maxOutputKW", "fuelRemainingLiters", "fuelPricePerLiter"],
+        "properties": {
+          "available": { "type": "boolean" },
+          "maxOutputKW": { "type": "number", "minimum": 0 },
+          "fuelRemainingLiters": { "type": "number", "minimum": 0 },
+          "fuelPricePerLiter": { "type": "number", "minimum": 0 }
+        }
+      }
+    }
+  }
