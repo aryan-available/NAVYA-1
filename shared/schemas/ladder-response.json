@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "LadderResponse",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["communityId", "timestamp", "stage", "stageIndex", "actions", "criticalLoadsProtected"],
+    "properties": {
+      "communityId": { "type": "string" },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "stage": { "enum": ["NORMAL", "EARLY_WARNING", "PRE_CHARGE", "RESCHEDULE_FLEXIBLE", "DIESEL_BACKUP", "LOAD_SHEDDING"] },
+      "stageIndex": { "type": "integer", "minimum": 0, "maximum": 5 },
+      "actions": { "type": "array", "items": { "type": "string" } },
+      "criticalLoadsProtected": { "type": "boolean" }
+    }
+  }

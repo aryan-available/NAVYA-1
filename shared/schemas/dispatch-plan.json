@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "DispatchPlan",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["runId", "communityId", "createdAt", "status", "schedule", "metrics", "reasonCodes"],
+    "properties": {
+      "runId": { "type": "string" },
+      "communityId": { "type": "string" },
+      "createdAt": { "type": "string", "format": "date-time" },
+      "status": { "enum": ["OPTIMAL", "FEASIBLE", "INFEASIBLE", "ERROR"] },
+      "schedule": {
+        "type": "array",
+        "items": {
+          "type": "object", "additionalProperties": false,
+          "required": ["timestamp", "solarKW", "windKW", "batteryChargeKW", "batteryDischargeKW", "dieselKW", "loadServedKW", "curtailedRenewableKW"],
+          "properties": {
+            "timestamp": { "type": "string", "format": "date-time" },
+            "solarKW": { "type": "number", "minimum": 0 },
+            "windKW": { "type": "number", "minimum": 0 },
+            "batteryChargeKW": { "type": "number", "minimum": 0 },
+            "batteryDischargeKW": { "type": "number", "minimum": 0 },
+            "dieselKW": { "type": "number", "minimum": 0 },
+            "loadServedKW": { "type": "number", "minimum": 0 },
+            "curtailedRenewableKW": { "type": "number", "minimum": 0 }
+          }
+        }
+      },
+      "metrics": {
+        "type": "object", "additionalProperties": false,
+        "required": ["totalCost", "totalCO2Kg", "dieselLiters", "renewableUtilizationPercent", "unservedEnergyKWh"],
+        "properties": {
+          "totalCost": { "type": "number", "minimum": 0 },
+          "totalCO2Kg": { "type": "number", "minimum": 0 },
+          "dieselLiters": { "type": "number", "minimum": 0 },
+          "renewableUtilizationPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+          "unservedEnergyKWh": { "type": "number", "minimum": 0 }
+        }
+      },
+      "reasonCodes": { "type": "array", "items": { "type": "string" } }
+    }
+  }

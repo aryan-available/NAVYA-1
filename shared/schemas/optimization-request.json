@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "OptimizationRequest",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["communityId", "state", "forecast"],
+    "properties": {
+      "communityId": { "type": "string" },
+      "scenarioId": { "type": "string" },
+      "state": { "$ref": "community-state.json" },
+      "forecast": { "$ref": "forecast.json" }
+    }
+  }

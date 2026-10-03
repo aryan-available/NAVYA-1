@@ -1,0 +1,26 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "ApiError",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["error"],
+    "properties": {
+      "error": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "message"],
+        "properties": {
+          "code": { "enum": ["VALIDATION_ERROR", "NOT_FOUND", "INTERNAL_ERROR"] },
+          "message": { "type": "string" },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["field", "issue"],
+              "properties": { "field": { "type": "string" }, "issue": { "type": "string" } }
+            }
+          }
+        }
+      }
+    }
+  }

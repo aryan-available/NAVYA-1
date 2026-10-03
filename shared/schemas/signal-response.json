@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "SignalResponse",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["communityId", "timestamp", "signal", "reason"],
+    "properties": {
+      "communityId": { "type": "string" },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "signal": { "enum": ["GREEN", "YELLOW", "RED"] },
+      "reason": { "type": "string" }
+    }
+  }

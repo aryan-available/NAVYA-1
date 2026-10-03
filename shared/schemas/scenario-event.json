@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "ScenarioEvent",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["type", "durationMinutes"],
+    "properties": {
+      "communityId": { "type": "string", "default": "community-001" },
+      "type": {
+        "enum": ["SOLAR_DROP", "WIND_DROP", "DEMAND_SURGE", "BATTERY_FAILURE",
+                 "DIESEL_FAILURE", "FUEL_PRICE_SPIKE", "COMBINED_SHORTAGE"]
+      },
+      "durationMinutes": { "type": "integer", "minimum": 1, "maximum": 1440 },
+      "dropPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+      "surgePercent": { "type": "number", "minimum": 0, "maximum": 500 },
+      "spikePercent": { "type": "number", "minimum": 0, "maximum": 500 }
+    },
+    "allOf": [
+      { "if": { "properties": { "type": { "enum": ["SOLAR_DROP", "WIND_DROP", "BATTERY_FAILURE"] } } },
+        "then": { "required": ["dropPercent"] } },
+      { "if": { "properties": { "type": { "const": "DEMAND_SURGE" } } },
+        "then": { "required": ["surgePercent"] } },
+      { "if": { "properties": { "type": { "const": "FUEL_PRICE_SPIKE" } } },
+        "then": { "required": ["spikePercent"] } },
+      { "if": { "properties": { "type": { "const": "COMBINED_SHORTAGE" } } },
+        "then": { "required": ["dropPercent", "surgePercent"] } }
+    ],
+    "$defs": {
+      "scenarioResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scenarioId", "communityId", "type", "startedAt", "endsAt", "active", "state"],
+        "properties": {
+          "scenarioId": { "type": "string" },
+          "communityId": { "type": "string" },
+          "type": { "$ref": "#/properties/type" },
+          "startedAt": { "type": "string", "format": "date-time" },
+          "endsAt": { "type": "string", "format": "date-time" },
+          "active": { "type": "boolean" },
+          "state": { "$ref": "community-state.json" }
+        }
+      }
+    }
+  }
